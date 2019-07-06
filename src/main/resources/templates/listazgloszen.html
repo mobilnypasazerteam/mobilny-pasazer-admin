@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<title>Mobilny pasażer</title>
+<meta charset="UTF-8">
+<div th:replace="fragments/header :: headerCss"></div>
+
+<body class="w3-light-grey w3-content" style="max-width:1600px">
+
+<!-- Sidebar/menu -->
+<block id="mySidebar" class="alt" th:include="fragments/sidebar.html :: mySidebar" />
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px">
+
+    <!-- Header -->
+    <header th:replace="fragments/header.html :: menuHeader" />
+
+    <div>
+        <h2>Lista zgłoszeń</h2>
+        <br>
+        <table border="1px">
+            <tr>
+                <th>Telefon kontaktowy</th>
+                <th>Adres e-mail</th>
+                <th>Dzień przejazdu</th>
+                <th>Stacja początkowa podróży</th>
+                <th>Godzina odjazdu</th>
+                <th>Stacja przesiadkowa</th>
+                <th>Stacja końcowa podróży</th>
+                <th>Godzina przyjazdu</th>
+                <th>Liczba osób</th>
+                <th>Ograniczenie w poruszaniu się</th>
+                <th>Dodatkowe informacje</th>
+            <tr th:each="ticket : ${ticketList}" >
+                <td th:text="*{ticket.phone}"></td>
+                <td th:text="*{ticket.email}"></td>
+                <td th:text="*{ticket.travelDate}"></td>
+                <td th:text="*{ticket.startPoint}"></td>
+                <td th:text="*{ticket.startTime}"></td>
+                <td th:text="*{ticket.intermediatePoint}"></td>
+                <td th:text="*{ticket.endPoint}"></td>
+                <td th:text="*{ticket.endTime}"></td>
+                <td th:text="*{ticket.passengerNo}"></td>
+                <td th:text="*{ticket.mobilityType.label}"></td>
+                <td th:text="*{ticket.additionalInfo}"></td>
+            </tr>
+
+        </table>
+    </div>
+
+
+</div>
+</body>
+</html>
