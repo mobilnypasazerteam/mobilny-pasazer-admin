@@ -3,6 +3,7 @@ package pl.sda.mobilnypasazeradmin.Elevators;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,14 +33,27 @@ public class ElevatorService {
                 .build();
 
     }
-    public List<ElevatorTicket> getTicketList() {
+    public List<ElevatorTicketDTO> getTicketList() {
 
         List<ElevatorTicket> all = elevatorRepository.findAll();
 
-        List<ElevatorTicketDTO> collect = all.stream().map( t -> t.toDto() ).collect( Collectors.toList() );
+        return entityToDTO (all);
+    }
 
-
-        return null;
+    private List<ElevatorTicketDTO> entityToDTO (List<ElevatorTicket> elevatorTickets) {
+        List<ElevatorTicketDTO> elevatorTicketDTO = new ArrayList<>(  );
+        for (ElevatorTicket ticket : elevatorTickets) {
+            elevatorTicketDTO.add( ElevatorTicketDTO.builder()
+            .id( ticket.getId() )
+            .station( ticket.getStation() )
+            .platform( ticket.getPlatform() )
+            .malfunction_date( ticket.getMalfunction_date() )
+            .action_taken( ticket.getAction_taken() )
+            .planned_malfunction_end( ticket.getPlanned_malfunction_end() )
+            .malfunction_end( ticket.getMalfunction_end() )
+            .build());
+        }
+        return elevatorTicketDTO;
     }
 
 }

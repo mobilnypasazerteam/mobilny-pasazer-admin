@@ -22,15 +22,9 @@ public class ElevatorTicket {
     private String station;
     private String platform;
     private String malfunction_date;
-    @Size(min=3, max=20, message = "maksymalnie 20 znaków")
     private String action_taken;
     private String planned_malfunction_end;
     private String malfunction_end;
-
-    public ElevatorTicketDTO toDto() {
-//        return ElevatorTicketDTO;
-        return null;
-    }
 
 
 }
