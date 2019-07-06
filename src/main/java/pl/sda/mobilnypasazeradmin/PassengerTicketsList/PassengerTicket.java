@@ -28,7 +28,6 @@ public class PassengerTicket {
     private String endPoint;
     private String endTime;
     private Integer passengerNo;
-    @Enumerated(EnumType.STRING)
     private ReducedMobilityType mobilityType;
     private String additionalInfo;
    }
