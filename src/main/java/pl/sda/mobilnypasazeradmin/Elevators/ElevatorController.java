@@ -3,9 +3,12 @@ package pl.sda.mobilnypasazeradmin.Elevators;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @Controller
 public class ElevatorController {
@@ -18,16 +21,27 @@ public class ElevatorController {
     }
 
     @GetMapping("/new-elevator-form")
-    String registerTicket (Model model) {
-        model.addAttribute( "ticket", new ElevatorTicket() );
+    String registerTicketElevator (Model model) {
+        ElevatorTicketDTO elevatorTicketDTO = new ElevatorTicketDTO();
+        model.addAttribute( "elevatorTicketDTO", elevatorTicketDTO);
         return "awariawindy";
     }
 
     @PostMapping(value="/new-elevator-malfunction")
-    public String saveTicket(@ModelAttribute(name = "ticket") ElevatorTicketDTO ticket, Model model){
+    public String saveTicket(@ModelAttribute(name = "elevatorTicketDTO") @Valid ElevatorTicketDTO elevatorTicketDTO,
+                             BindingResult result, Model model){
+        if(result.hasErrors()){
+            model.addAttribute("elevatorTicketDTO", elevatorTicketDTO);
+            return "awariawindy";
+        }
+        elevatorService.registerTicket(elevatorTicketDTO);
+        return "ticketList";
 
-        elevatorService.registerTicket(ticket);
-        model.addAttribute( "ticketList", elevatorService.getTicketList());
+    }
+
+    @GetMapping("/elevators-malfunction-list")
+    public String lista (Model model) {
+        model.addAttribute( "ticketList", elevatorService.getTicketList() );
         return "ticketList";
     }
 

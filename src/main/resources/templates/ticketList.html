@@ -64,37 +64,30 @@
     }
 </script>
 
-<div style="border-radius: 5px; margin-left: auto; background-color: #f2f2f2" >
+Dodano awarię windy.
 
-    <form method="post" action="/new-elevator-malfunction" th:object="${elevatorTicketDTO}">
+<div>
+    <h2>Lista zgłoszeń</h2>
+    <br>
+    <table border="1px">
+        <tr>
+            <th>Stacja</th>
+            <th>Peron</th>
+            <th>Data awarii</th>
+            <th>Podjęte działanie</th>
+            <th>Przewidywana data usunięcia awarii</th>
+            <th>Data usunięcia awarii</th>
+        </tr>
+        <tr th:each="ticket : ${elevatorTicketDTO}" >
+            <td th:text="*{elevatorTicketDTO.station}"></td>
+            <td th:text="*{elevatorTicketDTO.platform}"></td>
+            <td th:text="*{elevatorTicketDTO.malfunction_date}"></td>
+            <td th:text="*{elevatorTicketDTO.action_taken}"></td>
+            <td th:text="*{elevatorTicketDTO.planned_malfunction_end}"></td>
+            <td th:text="*{elevatorTicketDTO.malfunction_end}"></td>
+        </tr>
 
-        <p><label for="station">Stacja, gdzie ma miejsce awaria</label>
-            <input type="text" id="station" name="station" th:field="*{station}"></p>
-        <label for="platform">Numer peronu, którego dotyczy awaria</label>
-        <select id="platform" name="platform" th:field="*{platform}">
-        <option value="platform1">Peron 1</option>
-        <option value="platform2">Peron 2</option>
-        <option value="platform3">Peron 3</option>
-        <option value="platform4">Peron 4</option>
-        <option value="platform5">Peron 5</option>
-        <option value="platform6">Peron 6</option>
-        </select>
-
-        <p><label for="malfunction_date">Data awarii</label>
-            <input type="date" id="malfunction_date" name="data awarii" th:field="*{malfunction_date}"></p>
-
-        <p><label for="action_taken">Podjęte działanie</label>
-        <input type="text" id="action_taken" name="action_taken" th:field="*{action_taken}"></p>
-
-        <p><label for="planned_malfunction_end">Przewidywana data usunięcia awarii</label>
-            <input type="date" id="planned_malfunction_end" name="planowane usunięcie awarii" th:field="*{planned_malfunction_end}"></p>
-
-        <p><label for="malfunction_end">Data usunięcia awarii</label>
-            <input type="date" id="malfunction_end" name="data usunięcia awarii" th:field="*{malfunction_end}"></p>
-
-        <input type="submit" value="Opublikuj">
-
-    </form>
+    </table>
 </div>
 
 </body>
